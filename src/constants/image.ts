@@ -1,0 +1,11 @@
+export const avatar = require('../assets/icAvatar.png');
+export const mail = require('../assets/icMail.png');
+export const password = require('../assets/icPassword.png');
+export const mainIllust = require('../assets/mainIllust.png');
+export const logo = require('../assets/rubyLogo.png');
+export const rupi = require('../assets/rupi.png');
+export const pobby = require('../assets/pobby.png');
+export const pati = require('../assets/pati.png');
+export const edi = require('../assets/edi.png');
+export const crong = require('../assets/crong.png');
+export const arrow = require('../assets/icArrow.png');
