@@ -5,6 +5,8 @@ declare global {
     LoginScreen: undefined;
     RegisterScreen: undefined;
     MainScreen: undefined;
-    ChatScreen: undefined;
+    ChatScreen: {
+      name: string;
+    };
   };
 }

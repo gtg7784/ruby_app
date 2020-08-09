@@ -7,6 +7,7 @@ import {
   TextInput,
   Pressable,
   Image,
+  ScrollView,
 } from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -83,13 +84,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: -36,
   },
+  chatContainer: {
+    width: '100%',
+  },
 });
 
 interface Props {
   navigation: StackNavigationProp<MainParamList, 'ChatScreen'>;
+  route: {
+    name: string;
+  };
 }
 
-const ChatScreen: React.FC<Props> = () => {
+const ChatScreen: React.FC<Props> = ({route}: Props) => {
   const [chat, setChat] = useState('');
   const [arr, setArr] = useState([]);
   let [, setState] = useState();
@@ -120,14 +127,20 @@ const ChatScreen: React.FC<Props> = () => {
   return (
     <Container style={styles.container}>
       <View style={styles.headerView}>
-        <Text style={styles.headerText}>루피</Text>
+        <Text style={styles.headerText}>{route.params.name}</Text>
       </View>
       <View style={styles.dateView}>
         <Text style={styles.dateText}>{dateString}</Text>
       </View>
-      {arr.map((item: string, index: number) => (
-        <ChattingBox msg={item} isSender={index % 2 === 0} key={index} />
-      ))}
+      <ScrollView
+        style={StyleSheet.flatten([
+          styles.chatContainer,
+          {marginBottom: insets.bottom + 20},
+        ])}>
+        {arr.map((item: string, index: number) => (
+          <ChattingBox msg={item} isSender={index % 2 === 0} key={index} />
+        ))}
+      </ScrollView>
       <View
         style={StyleSheet.flatten([
           styles.chatView,

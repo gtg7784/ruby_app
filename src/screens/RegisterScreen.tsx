@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Alert} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import axios from 'axios';
@@ -67,6 +67,8 @@ const RegisterScreen: React.FC<Props> = ({navigation}: Props) => {
 
     if (response.status === 201) {
       navigation.goBack();
+    } else {
+      Alert.alert('회원가입 과정에서 문제가 발생했습니다!');
     }
   };
 

@@ -6,10 +6,11 @@ import {
   Text,
   Dimensions,
   View,
+  KeyboardAvoidingView,
+  Alert,
 } from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import axios from 'axios';
-import {API_HOST} from 'react-native-dotenv';
 
 import {logo, mainIllust, avatar, password} from '../constants/image';
 import Container from '../components/Container';
@@ -99,47 +100,54 @@ const LoginScreen: React.FC<Props> = ({navigation}: Props) => {
     console.log(response);
 
     if (response.status === 200) {
-      navigation.navigate('MainScreen');
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'MainScreen'}],
+      });
+    } else {
+      Alert.alert('로그인 과정에서 문제가 발생했습니다!');
     }
   };
 
   return (
-    <Container style={styles.container}>
-      <Image source={logo} style={styles.logoImage} />
-      <Image source={mainIllust} style={styles.illustImage} />
-      <Input
-        style={styles.input}
-        value={id}
-        onChange={setId}
-        icon={avatar}
-        label="닉네임"
-      />
-      <Input
-        style={styles.input}
-        value={pw}
-        onChange={setPw}
-        icon={password}
-        label="Password"
-        password
-      />
-      <View style={styles.forgetView}>
-        <Pressable onPress={() => navigation.navigate('RegisterScreen')}>
-          <Text style={styles.forgetText}>비밀번호를 까먹으셨나요?</Text>
-        </Pressable>
-      </View>
-      <Button
-        color="#fff"
-        label="로그인"
-        style={styles.button}
-        onPress={onLogin}
-      />
-      <View style={styles.registerView}>
-        <Text style={styles.registerText}>처음이신가요?</Text>
-        <Pressable onPress={() => navigation.navigate('RegisterScreen')}>
-          <Text style={styles.registerPink}>회원가입</Text>
-        </Pressable>
-      </View>
-    </Container>
+    <KeyboardAvoidingView style={styles.container}>
+      <Container style={styles.container}>
+        <Image source={logo} style={styles.logoImage} />
+        <Image source={mainIllust} style={styles.illustImage} />
+        <Input
+          style={styles.input}
+          value={id}
+          onChange={setId}
+          icon={avatar}
+          label="닉네임"
+        />
+        <Input
+          style={styles.input}
+          value={pw}
+          onChange={setPw}
+          icon={password}
+          label="Password"
+          password
+        />
+        <View style={styles.forgetView}>
+          <Pressable onPress={() => navigation.navigate('RegisterScreen')}>
+            <Text style={styles.forgetText}>비밀번호를 까먹으셨나요?</Text>
+          </Pressable>
+        </View>
+        <Button
+          color="#fff"
+          label="로그인"
+          style={styles.button}
+          onPress={onLogin}
+        />
+        <View style={styles.registerView}>
+          <Text style={styles.registerText}>처음이신가요?</Text>
+          <Pressable onPress={() => navigation.navigate('RegisterScreen')}>
+            <Text style={styles.registerPink}>회원가입</Text>
+          </Pressable>
+        </View>
+      </Container>
+    </KeyboardAvoidingView>
   );
 };
 
